@@ -1,8 +1,8 @@
 const initialState = [
   {
     date: new Date(),
-    standingVertical: 34,
-    maxVertical: 41
+    standingVertical: 0,
+    maxVertical: 0
   }
 ];
 

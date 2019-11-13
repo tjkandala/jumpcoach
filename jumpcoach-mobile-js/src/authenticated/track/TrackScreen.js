@@ -23,7 +23,7 @@ const TrackScreen = ({ navigation }) => (
 );
 
 TrackScreen.navigationOptions = {
-  title: "Track",
+  title: "Track Your Progress",
   headerStyle: {
     backgroundColor: "#26262B",
     elevation: 0,

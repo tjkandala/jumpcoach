@@ -25,14 +25,14 @@ const AddVertScreen = ({ addVertDataAttempt }) => {
         style={styles.input}
         onChangeText={setStandingVertical}
         placeholder="Standing Vertical"
-        placeholderTextColor="#AADAFA"
+        placeholderTextColor="#777"
       />
       <TextInput
         autoCorrect={false}
         style={styles.input}
         onChangeText={setMaxVertical}
         placeholder="Max Vertical"
-        placeholderTextColor="#AADAFA"
+        placeholderTextColor="#777"
       />
 
       <TouchableOpacity

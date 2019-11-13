@@ -75,3 +75,11 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
+
+const formatDate = (date = new Date()) => {
+  const dateObject = new Date(date);
+  const formattedDate = `${dateObject.getMonth() +
+    1}-${dateObject.getDate()}-${dateObject.getFullYear()}`;
+
+  return formattedDate;
+};

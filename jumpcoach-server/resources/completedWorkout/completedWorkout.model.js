@@ -6,7 +6,6 @@ const completedExerciseSchema = new Schema({
     type: String,
     required: true
   },
-  // sets are unstructured
   recordedSets: [
     {
       type: String

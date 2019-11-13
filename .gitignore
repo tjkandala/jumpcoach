@@ -1,2 +1,3 @@
 jumpcoach-mobile-js/gitignore
 jumpcoach-server/gitignore
+.DS_Store
