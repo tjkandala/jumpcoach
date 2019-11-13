@@ -25,14 +25,14 @@ const d3 = {
 
 import { scaleTime, scaleLinear, scaleQuantile } from "d3-scale";
 
-const data = [
-  { x: new Date(2018, 9, 1), y: 24 },
-  { x: new Date(2018, 9, 16), y: 14 },
-  { x: new Date(2018, 9, 17), y: 24 },
-  { x: new Date(2018, 10, 1), y: 30 },
-  { x: new Date(2018, 10, 2), y: 35 },
-  { x: new Date(2018, 10, 5), y: 42 }
-];
+// const data = [
+//   { x: new Date(2018, 9, 1), y: 24 },
+//   { x: new Date(2018, 9, 16), y: 14 },
+//   { x: new Date(2018, 9, 17), y: 24 },
+//   { x: new Date(2018, 10, 1), y: 30 },
+//   { x: new Date(2018, 10, 2), y: 35 },
+//   { x: new Date(2018, 10, 5), y: 42 }
+// ];
 
 const height = 200;
 const { width } = Dimensions.get("window");
@@ -42,7 +42,7 @@ const labelWidth = 100;
 
 // helper functions for domain and range
 
-const VertChartContainer = ({ vertHistory }) => {
+const VertChartContainer = ({ data }) => {
   const [line, setLine] = useState(null);
   const [lineLength, setLineLength] = useState(null);
   const [domainXTuple, setDomainXTuple] = useState(null);
@@ -61,7 +61,10 @@ const VertChartContainer = ({ vertHistory }) => {
       Math.max(...data.map(datum => datum.y))
     ];
 
-    const rangeScaleLabel = data.map(datum => datum.y);
+    const rangeScaleLabelUnsorted = data.map(datum => datum.y);
+    const rangeScaleLabel = rangeScaleLabelUnsorted
+      .filter((item, index) => rangeScaleLabelUnsorted.indexOf(item) === index)
+      .sort((a, b) => a - b);
 
     const scaleX = scaleTime()
       .domain(domainXTuple)
@@ -206,7 +209,7 @@ const VertChart = ({
 };
 
 const mapStateToProps = state => ({
-  vertHistory: state.vertHistory
+  data: state.vertHistory
 });
 
 const ConnectedVertChartContainer = connect(

@@ -1,9 +1,12 @@
+// x: date, y: max vertical
+
 const initialState = [
-  {
-    date: new Date(),
-    standingVertical: 0,
-    maxVertical: 0
-  }
+  { x: new Date(2018, 9, 1), y: 24 },
+  { x: new Date(2018, 9, 16), y: 32 },
+  { x: new Date(2018, 9, 17), y: 24 },
+  { x: new Date(2018, 10, 1), y: 30 },
+  { x: new Date(2018, 10, 2), y: 35 },
+  { x: new Date(2018, 10, 5), y: 42 }
 ];
 
 export const vertHistory = (state = initialState, action) => {
@@ -14,9 +17,8 @@ export const vertHistory = (state = initialState, action) => {
       return [
         ...state,
         {
-          date: new Date(),
-          standingVertical: action.standingVertical,
-          maxVertical: action.maxVertical
+          x: new Date(),
+          y: action.maxVertical
         }
       ];
     default:
