@@ -3,3 +3,8 @@ export const addVertDataAttempt = (maxVertical, chosenDate) => ({
   maxVertical,
   chosenDate
 });
+
+export const deleteVertDataAttempt = index => ({
+  type: "DELETE_VERT_DATA_ATTEMPT",
+  index
+});

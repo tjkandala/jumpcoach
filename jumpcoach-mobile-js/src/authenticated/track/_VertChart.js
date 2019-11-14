@@ -207,7 +207,7 @@ const VertChart = ({
         <Animated.ScrollView
           style={StyleSheet.absoluteFill}
           contentContainerStyle={{ width: lineLength * 2 }}
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
           bounces={false}
           onScroll={Animated.event(

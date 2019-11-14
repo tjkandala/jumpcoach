@@ -1,8 +1,15 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet
+} from "react-native";
 import { connect } from "react-redux";
+import EditVert from "./_EditVert";
 
-const EditVertScreen = ({ navigation }) => (
+const EditVertScreen = ({ navigation, vertHistory }) => (
   <View style={styles.container}>
     <TouchableOpacity
       style={styles.buttonContainer}
@@ -10,6 +17,17 @@ const EditVertScreen = ({ navigation }) => (
     >
       <Text style={styles.buttonText}>Add New Vert Data</Text>
     </TouchableOpacity>
+
+    <View style={styles.divider} />
+
+    <FlatList
+      data={vertHistory}
+      style={{ alignSelf: "stretch" }}
+      renderItem={({ _, index }) => (
+        <EditVert index={index} navigation={navigation} />
+      )}
+      keyExtractor={(_, index) => index.toString()}
+    />
   </View>
 );
 
@@ -27,7 +45,9 @@ EditVertScreen.navigationOptions = {
   }
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  vertHistory: state.vertHistory
+});
 
 const mapDispatchToProps = state => ({});
 
@@ -48,7 +68,14 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff"
   },
-
+  divider: {
+    color: "#CDE3F8",
+    borderColor: "#CDE3F8",
+    borderWidth: 1,
+    height: 1,
+    borderRadius: 1,
+    width: "90%"
+  },
   buttonText: {
     color: "#fff",
     fontSize: 12,
@@ -65,3 +92,11 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
+
+const formatDate = (date = new Date()) => {
+  const dateObject = new Date(date);
+  const formattedDate = `${dateObject.getMonth() +
+    1}-${dateObject.getDate()}-${dateObject.getFullYear()}`;
+
+  return formattedDate;
+};

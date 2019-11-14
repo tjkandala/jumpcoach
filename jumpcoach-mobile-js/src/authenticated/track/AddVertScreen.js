@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import { addVertDataAttempt } from "../../../redux/vertHistory/actionCreators";
 import { StackActions, NavigationActions } from "react-navigation";
 
-// make confirm screen first, move this there!
 const resetAction = StackActions.reset({
   index: 0,
   actions: [NavigationActions.navigate({ routeName: "Track" })]

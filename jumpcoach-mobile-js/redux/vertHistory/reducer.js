@@ -20,6 +20,11 @@ export const vertHistory = (state = initialState, action) => {
       state.sort((a, b) => a.x - b.x);
 
       return [...state];
+
+    case "DELETE_VERT_DATA_ATTEMPT":
+      state.splice(action.index, 1);
+
+      return [...state];
     default:
       return state;
   }
