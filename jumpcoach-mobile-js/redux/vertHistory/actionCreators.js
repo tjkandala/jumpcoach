@@ -1,5 +1,5 @@
-export const addVertDataAttempt = (standingVertical, maxVertical) => ({
+export const addVertDataAttempt = (maxVertical, chosenDate) => ({
   type: "ADD_VERT_DATA_ATTEMPT",
-  standingVertical,
-  maxVertical
+  maxVertical,
+  chosenDate
 });

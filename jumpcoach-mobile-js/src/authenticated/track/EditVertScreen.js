@@ -1,29 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import VertChart from "./_VertChart";
+import { connect } from "react-redux";
 
-const TrackScreen = ({ navigation }) => (
+const EditVertScreen = ({ navigation }) => (
   <View style={styles.container}>
-    <VertChart />
-
-    <TouchableOpacity
-      onPress={() => navigation.navigate("EditVert")}
-      style={styles.buttonContainer}
-    >
-      <Text style={styles.buttonText}>Edit Vertical Jump History</Text>
-    </TouchableOpacity>
-
     <TouchableOpacity
       style={styles.buttonContainer}
-      onPress={() => navigation.navigate("PastWorkout")}
+      onPress={() => navigation.navigate("AddVert")}
     >
-      <Text style={styles.buttonText}>View Past Workouts</Text>
+      <Text style={styles.buttonText}>Add New Vert Data</Text>
     </TouchableOpacity>
   </View>
 );
 
-TrackScreen.navigationOptions = {
-  title: "Track Your Vertical Jump",
+EditVertScreen.navigationOptions = {
+  title: "Edit Vert History",
   headerStyle: {
     backgroundColor: "#26262B",
     elevation: 0,
@@ -36,7 +27,16 @@ TrackScreen.navigationOptions = {
   }
 };
 
-export default TrackScreen;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = state => ({});
+
+const ConnectedEditVertScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditVertScreen);
+
+export default ConnectedEditVertScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff"
   },
+
   buttonText: {
     color: "#fff",
     fontSize: 12,

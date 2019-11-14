@@ -7,8 +7,8 @@ import SettingsStack from "./settings";
 
 const TabNavigator = createBottomTabNavigator(
   {
-    "Work Out": WorkOutStack,
     Track: TrackStack,
+    "Work Out": WorkOutStack,
     FAQ: FAQStack,
     Settings: SettingsStack
   },

@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
+  DatePickerIOS,
   StyleSheet
 } from "react-native";
 import { connect } from "react-redux";
@@ -17,23 +18,14 @@ const resetAction = StackActions.reset({
 });
 
 const AddVertScreen = ({ navigation, addVertDataAttempt }) => {
-  const [standingVertical, setStandingVertical] = useState(0);
   const [maxVertical, setMaxVertical] = useState(0);
+  const [chosenDate, setDate] = useState(new Date());
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Your Vertical on {formatDate()}</Text>
-
-      <Text style={styles.text}>standingVertical: {standingVertical}</Text>
+      <Text style={styles.text}>Your Vertical on {formatDate(chosenDate)}</Text>
       <Text style={styles.text}>maxVertical: {maxVertical}</Text>
 
-      <TextInput
-        autoCorrect={false}
-        style={styles.input}
-        onChangeText={setStandingVertical}
-        placeholder="Standing Vertical"
-        placeholderTextColor="#777"
-      />
       <TextInput
         autoCorrect={false}
         style={styles.input}
@@ -42,10 +34,19 @@ const AddVertScreen = ({ navigation, addVertDataAttempt }) => {
         placeholderTextColor="#777"
       />
 
+      <View style={styles.datePicker}>
+        <DatePickerIOS
+          mode="date"
+          date={chosenDate}
+          onDateChange={setDate}
+          maximumDate={new Date()}
+        />
+      </View>
+
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => {
-          addVertDataAttempt(standingVertical, maxVertical);
+          addVertDataAttempt(maxVertical, chosenDate);
           navigation.dispatch(resetAction);
         }}
       >
@@ -70,8 +71,8 @@ AddVertScreen.navigationOptions = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addVertDataAttempt: (standingVertical, maxVertical) =>
-    dispatch(addVertDataAttempt(standingVertical, maxVertical))
+  addVertDataAttempt: (maxVertical, chosenDate) =>
+    dispatch(addVertDataAttempt(maxVertical, chosenDate))
 });
 
 const ConnectedAddVertScreen = connect(
@@ -90,6 +91,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff"
+  },
+  datePicker: {
+    backgroundColor: "#d3d3d3",
+    width: "90%",
+    height: 200,
+    borderRadius: 12
   },
   buttonText: {
     color: "#fff",

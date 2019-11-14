@@ -39,6 +39,7 @@ const VertChartContainer = ({ data }) => {
   const [domainXTuple, setDomainXTuple] = useState(null);
   const [domainYTuple, setDomainYTuple] = useState(null);
   const [rangeScaleLabel, setRangeScaleLabel] = useState(null);
+  const [domainScaleLabel, setDomainScaleLabel] = useState(null);
 
   useEffect(() => {
     // execute domain and range functions here
@@ -56,6 +57,8 @@ const VertChartContainer = ({ data }) => {
     const rangeScaleLabel = rangeScaleLabelUnsorted
       .filter((item, index) => rangeScaleLabelUnsorted.indexOf(item) === index)
       .sort((a, b) => a - b);
+
+    const domainScaleLabel = data.map(datum => datum.x);
 
     const scaleX = scaleTime()
       .domain(domainXTuple)
@@ -81,6 +84,7 @@ const VertChartContainer = ({ data }) => {
     setDomainXTuple(domainXTuple);
     setDomainYTuple(domainYTuple);
     setRangeScaleLabel(rangeScaleLabel);
+    setDomainScaleLabel(domainScaleLabel);
   }, [data]);
 
   return (
@@ -92,6 +96,7 @@ const VertChartContainer = ({ data }) => {
           domainXTuple={domainXTuple}
           domainYTuple={domainYTuple}
           rangeScaleLabel={rangeScaleLabel}
+          domainScaleLabel={domainScaleLabel}
         />
       ) : (
         <></>
@@ -105,13 +110,15 @@ const VertChart = ({
   lineLength,
   domainXTuple,
   domainYTuple,
-  rangeScaleLabel
+  rangeScaleLabel,
+  domainScaleLabel
 }) => {
   const [x, setX] = useState(new Animated.Value(0));
   const cursor = useRef(null);
 
   // continuous to discrete values
   const [scaledLabel, setScaledLabel] = useState(0);
+  const [scaledDate, setScaledDate] = useState(0);
 
   useEffect(() => {
     x.addListener(({ value }) => {
@@ -123,6 +130,17 @@ const VertChart = ({
         left: x - cursorRadius
       });
 
+      // gets date
+      const scaleDate = scaleQuantile()
+        .domain(domainXTuple)
+        .range(domainScaleLabel);
+      const scaleX = scaleLinear()
+        .domain(domainXTuple)
+        .range([0, width]);
+
+      setScaledDate(scaleDate(scaleX.invert(x)));
+
+      // gets vertical jump number
       const scaleLabel = scaleQuantile()
         .domain(domainYTuple)
         .range(rangeScaleLabel);
@@ -144,6 +162,15 @@ const VertChart = ({
       left: x - cursorRadius
     });
 
+    const scaleDate = scaleQuantile()
+      .domain(domainXTuple)
+      .range(domainScaleLabel);
+    const scaleX = scaleLinear()
+      .domain(domainXTuple)
+      .range([0, width]);
+
+    setScaledDate(scaleDate(scaleX.invert(x)));
+
     const scaleLabel = scaleQuantile()
       .domain(domainYTuple)
       .range(rangeScaleLabel);
@@ -157,6 +184,7 @@ const VertChart = ({
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.titleText}>{scaledLabel} inches</Text>
+      <Text style={styles.dateText}>{formatDate(scaledDate)}</Text>
 
       <View style={styles.container}>
         <Svg {...{ width, height }}>
@@ -236,10 +264,16 @@ const styles = StyleSheet.create({
   },
   titleText: {
     marginTop: 16,
+    marginBottom: 4,
     fontSize: 48,
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center"
+  },
+  dateText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold"
   }
 });
 
