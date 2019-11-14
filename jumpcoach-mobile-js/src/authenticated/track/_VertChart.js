@@ -25,15 +25,6 @@ const d3 = {
 
 import { scaleTime, scaleLinear, scaleQuantile } from "d3-scale";
 
-// const data = [
-//   { x: new Date(2018, 9, 1), y: 24 },
-//   { x: new Date(2018, 9, 16), y: 14 },
-//   { x: new Date(2018, 9, 17), y: 24 },
-//   { x: new Date(2018, 10, 1), y: 30 },
-//   { x: new Date(2018, 10, 2), y: 35 },
-//   { x: new Date(2018, 10, 5), y: 42 }
-// ];
-
 const height = 200;
 const { width } = Dimensions.get("window");
 const verticalPadding = 5;
@@ -90,7 +81,7 @@ const VertChartContainer = ({ data }) => {
     setDomainXTuple(domainXTuple);
     setDomainYTuple(domainYTuple);
     setRangeScaleLabel(rangeScaleLabel);
-  }, []);
+  }, [data]);
 
   return (
     <>
@@ -188,7 +179,7 @@ const VertChart = ({
         <Animated.ScrollView
           style={StyleSheet.absoluteFill}
           contentContainerStyle={{ width: lineLength * 2 }}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
           scrollEventThrottle={16}
           bounces={false}
           onScroll={Animated.event(

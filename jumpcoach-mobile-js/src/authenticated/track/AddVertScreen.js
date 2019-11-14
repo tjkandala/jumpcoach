@@ -8,8 +8,15 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { addVertDataAttempt } from "../../../redux/vertHistory/actionCreators";
+import { StackActions, NavigationActions } from "react-navigation";
 
-const AddVertScreen = ({ addVertDataAttempt }) => {
+// make confirm screen first, move this there!
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: "Track" })]
+});
+
+const AddVertScreen = ({ navigation, addVertDataAttempt }) => {
   const [standingVertical, setStandingVertical] = useState(0);
   const [maxVertical, setMaxVertical] = useState(0);
 
@@ -37,7 +44,10 @@ const AddVertScreen = ({ addVertDataAttempt }) => {
 
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => addVertDataAttempt(standingVertical, maxVertical)}
+        onPress={() => {
+          addVertDataAttempt(standingVertical, maxVertical);
+          navigation.dispatch(resetAction);
+        }}
       >
         <Text style={styles.buttonText}>Add Vert</Text>
       </TouchableOpacity>
